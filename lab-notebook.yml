@@ -1,0 +1,100 @@
+---
+version: 0.2
+
+day: 2016/04/20
+lab: Van Gelder Lab
+affiliation: University of Washington Medicine
+people:
+  - Laura Laprell
+  - Tyler Benster
+
+
+study:
+  name: Evaluating moving gratings on wildtype mice and melrd mice treated with DAD
+  type: MEA
+  mea_temp: 34C
+  perfusion_temp: 36C
+  flow_rate: 2.5ml/min
+
+  data:
+    # types: mel, melrd, black6, black6rd, gnat1gnat2mel
+    - mouse: melrd
+      dob: 2015/09/15
+      retinas:
+        - name: 1
+          notes: "Put as many
+            lines as you want!
+            woooooo"
+          # location is either center or periphery
+          location: periphery
+          experiments:
+            - name: Moving grating with first 20s dark
+              path: file=E1_R1_AMES_20min_FAKEFILE_grating_0.5_0.1_first20s_dark.mcd
+              # solution examples: AMES, DAD, PHENAQ, 
+              solution:
+                - AMES
+                - DAD
+              # time format examples: 1h2m20s, 10m, 1m20s
+              time: 20m
+              # this is a comment. Notes are
+              stimulus:
+                # type is DLP or shutter
+                type: eyecandy
+                program: orientationSelectivityGen
+                speeds:
+                  - 500
+                  - 1000
+                widths:
+                  - 10
+                  - 100
+                numRepeat: 25
+            - name: Moving grating with first 20s dark
+              # glob means to match all files with wildcard *
+              path: glob=E2_R1_AMES_25min_grating_0.5_0.25_first20s_dark*
+              solution: AMES
+              time: 25min
+              stimulus:
+                type: eyecandy
+                program: orientationSelectivityGen
+                speeds:
+                  - 500
+                  - 1000
+                widths:
+                  - 10
+                  - 100
+                numRepeat: 25
+            - path: example_light
+              solution: DAD
+              time: 35min
+              stimulus:
+                type: shutter
+                trigger: periodic
+                start_state: off
+                wait: 20000
+                interval: 5000
+            - path: example_light2
+              solution: DAD
+              time: 35min
+              stimulus:
+                type: shutter
+                trigger: list
+                start_state: off
+                event_times:
+                  - 10000
+                  - 15000
+                  - 25000
+        - name: 2 
+          location: periphery
+          experiments:
+            - path: E1_R1_AMES_20min_grating_0.5_0.1_first20s dark
+              solution: AMES
+              time: 20min
+              stimulus:
+                type: chromatic_grating
+                pinhole: true
+                orientation: 0
+                pre_time: 20000
+                stim_time: 60000
+                tail_time: 20000
+                spatial_frequency: 0.5
+                temporal_resolution: 0.1
